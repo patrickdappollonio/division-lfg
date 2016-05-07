@@ -18,3 +18,6 @@ handlers:
 skip_files:
 - ^(.*/)?.*\.DS_Store$
 - ^(.*/)?.*/node_modules/.*$
+- ^assets/(css|img|js)/.*$
+- ^gulpfile.js$
+- ^package.json$
