@@ -9,7 +9,7 @@
 				v-bind:class="{ 'agent-block-pc': agent.platform == 'pc', 'agent-block-ps4': agent.platform == 'ps4',
 				'agent-block-xbone': agent.platform == 'xbone' }">
 					<div class="row">
-						<div class="col-sm-4">
+						<div class="col-sm-5 col-md-4">
 							<div class="agent-block-username">
 								<i aria-hidden="true" class="fa fa-microphone" v-if="agent.microphone"></i>
 								@{ agent.username }
@@ -35,7 +35,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-8">
+						<div class="col-sm-7 col-md-8">
 							<div class="agent-block-activity"><span>Actividad:</span> @{ agent.activity }</div>
 							<p class="description">
 								@{ agent.description }
