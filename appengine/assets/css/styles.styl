@@ -77,6 +77,111 @@ body
 		font-weight bold
 
 
+.agent-block
+	display block
+	border 1px solid #ddd
+	border-radius 5px
+	margin-bottom 25px
+	padding 14px 18px
+	transition background .5s ease-out
+
+	&:hover, &:focus
+		background rgba(#ffffee, 60%)
+
+	&:last-child
+		margin-bottom 0
+
+	.agent-block-username
+		display block
+		text-align center
+		padding 7px 10px
+		background-color #f5f5f5
+		border-radius 30px
+		font-weight bold
+		font-size 18px
+
+	.agent-block-stats
+		margin-top 20px
+
+		.agent-block-stat-title
+			display block
+			text-align center
+			padding 5px 7px
+			background-color #f5f5f5
+			border-radius 5px
+			border-bottom-left-radius 0
+			border-bottom-right-radius 0
+			font-size 13px
+			font-weight bold
+			text-transform uppercase
+
+		.agent-block-stat-left
+			display block
+			text-align center
+
+			span
+				display block
+				border-bottom 1px solid #ddd
+				padding 7px 0 5px 0
+				margin-bottom 5px
+				font-size 13px
+				font-weight bold
+				text-transform uppercase
+
+	.agent-block-activity
+		display block
+		border-bottom 2px solid #ddd
+		padding-bottom 14px
+		margin-bottom 20px
+		font-size 14px
+		font-weight bold
+		text-transform uppercase
+		position relative
+
+		&:before, &:after
+			content ""
+			display block
+			position absolute
+			bottom -6px
+			left 50%
+			transform translateX(-50%) rotate(45deg)
+			size 10px
+			background #ddd
+
+		&:after
+			size 9px
+			background #fff
+			bottom -3px
+
+
+		span
+			background-color #f5f5f5
+			display inline-block
+			padding 5px 10px
+			margin-right 8px
+
+	.agent-block-skills
+		list-style-type none
+		padding 0
+		margin 0
+		margin-top 20px
+
+		li
+			display inline-block
+			border 1px solid #ddd
+			padding 4px 12px
+
+			.fa
+				margin-right 5px
+
+			&:first-child
+				border-top-left-radius 4px
+				border-bottom-left-radius 4px
+
+			&:last-child
+				border-top-right-radius 4px
+				border-bottom-right-radius 4px
+
 footer
 	margin-top 30px
 	padding 30px 0

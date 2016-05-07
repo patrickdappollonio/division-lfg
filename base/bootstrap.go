@@ -21,5 +21,4 @@ func init() {
 	)
 
 	Router.Get("/", handlers.GetHome)
-	Router.Post("/test", handlers.Test)
 }
