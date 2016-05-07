@@ -84,6 +84,33 @@ body
 	margin-bottom 25px
 	padding 14px 18px
 	transition background .5s ease-out
+	position relative
+
+	@media (max-width 767px)
+		padding-top 48px
+
+	agent-block-platform()
+		position absolute
+		top 0
+		right 0
+		font-size 13px
+		font-weight bold
+		text-transform uppercase
+		background #f0f0f0
+		padding 8px 10px 8px 14px
+		border-bottom-left-radius 5px
+
+	&.agent-block-ps4:before
+		content "PlayStation 4"
+		agent-block-platform()
+
+	&.agent-block-pc:before
+		content "PC (Uplay / Steam)"
+		agent-block-platform()
+
+	&.agent-block-xbone:before
+		content "Xbox One"
+		agent-block-platform()
 
 	&:hover, &:focus
 		background rgba(#ffffee, 60%)
@@ -138,6 +165,9 @@ body
 		text-transform uppercase
 		position relative
 
+		@media (max-width 767px)
+			margin-top 24px
+
 		&:before, &:after
 			content ""
 			display block
@@ -165,11 +195,13 @@ body
 		padding 0
 		margin 0
 		margin-top 20px
+		font-size 14px
+		font-weight bold
 
 		li
 			display inline-block
 			border 1px solid #ddd
-			padding 4px 12px
+			padding 4px 8px
 
 			.fa
 				margin-right 5px
