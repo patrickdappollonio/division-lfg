@@ -1,0 +1,65 @@
+<div class="panel panel-default" id="panel-search-box">
+	<div class="panel-body">
+		<form action="#" class="row" @submit.prevent="searchAgents" method="post">
+			<div class="col-sm-6 col-md-4 form-group">
+				<select class="form-control" name="platform" id="s-platform" v-model="searchparams.platform">
+					<option value="any" selected>Cualquier Plataforma</option>
+					{{ renderoptmap .AvailablePlatforms }}
+				</select>
+			</div>
+			<div class="col-sm-6 col-md-4 form-group">
+				<select class="form-control" name="activity" id="s-activity" v-model="searchparams.activity">
+					<option value="any" selected>Cualquier Actividad</option>
+					{{ renderoptmap .AvailableActivities }}
+				</select>
+			</div>
+			<div class="col-sm-6 col-md-4 form-group">
+				<select class="form-control" name="microphone" id="s-microphone" v-model="searchparams.microphone">
+					<option value="any" selected>Tenga o no Micrófono</option>
+					<option value="true">Que tenga micrófono</option>
+					<option value="false">Que no tenga micrófono</option>
+				</select>
+			</div>
+			<div class="col-sm-6 col-md-4 form-group">
+				<select class="form-control" name="storylevel" id="s-storylevel" v-model="searchparams.storylevel">
+					<option value="any" selected>Cualquier nivel modo historia</option>
+					{{ renderopts .MinStoryLevel .MaxStoryLevel "Nivel #" }}
+				</select>
+			</div>
+			<div class="col-sm-6 col-md-4 form-group">
+				<select class="form-control" name="dzlevel" id="s-dzlevel" v-model="searchparams.dzlevel">
+					<option value="any" selected>Cualquier nivel zona oscura</option>
+					{{ renderopts .MinDZLevel .MaxDZLevel "Nivel #" }}
+				</select>
+			</div>
+			<div class="col-sm-6 col-md-4 form-group">
+				<select class="form-control" name="gearleve" id="s-gearlevel" v-model="searchparams.gearlevel">
+					<option value="any" selected>Cualquier nivel de equipo</option>
+					{{ renderopts .MinGearLevel .MaxGearLevel "Nivel #" }}
+				</select>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div class="input-group">
+					<span class="input-group-addon" id="search-addon">
+						<i class="fa fa-search" aria-hidden="true"></i>
+					</span>
+					<input type="text" name="search" id="s-search" class="form-control"
+					maxlength="{{ .MaxDescriptionLength }}"
+					placeholder="Busca en la descripción del agente datos extra..."
+					aria-describedby="search-addon" v-model="searchparams.search">
+				</div>
+			</div>
+			<div class="col-sm-offset-1 col-sm-5 col-md-offset-2 col-md-4 form-group">
+				<button type="submit" id="search-agents" class="form-control btn btn-primary">
+					<i class="fa fa-search"></i> Buscar Agentes
+				</button>
+			</div>
+			<div class="col-sm-offset-0 col-sm-5 col-md-offset-0 col-md-4 form-group">
+				<button type="button" class="form-control btn btn-success" data-toggle="modal"
+				data-target="#modal-add-agent">
+					<i class="fa fa-user-plus"></i> Agregarme al Listado
+				</button>
+			</div>
+		</form>
+	</div>
+</div>

@@ -15,7 +15,7 @@ var app = new Vue({
 
 	methods: {
 		searchAgents: function() {
-			this.$http.post('/app/users').then(function(response) {
+			this.$http.post('/app/users', this.searchparams).then(function(response) {
 				this.$set('agents', response.data.agents);
 			},
 			function(err) {
@@ -26,6 +26,15 @@ var app = new Vue({
 
 	data: {
 		agents: [],
+		searchparams: {
+			platform: 'any',
+			activity: 'any',
+			microphone: 'any',
+			storylevel: 'any',
+			dzlevel: 'any',
+			gearlevel: 'any',
+			search: ''
+		}
 	},
 
 	ready: function() {

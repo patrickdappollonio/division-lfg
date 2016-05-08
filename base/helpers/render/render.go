@@ -33,6 +33,32 @@ var tmplfuncs = []template.FuncMap{
 			}
 			return def
 		},
+		"renderopts": func(min, max int, format string) template.HTML {
+			var elems []string
+			for i := min; i <= max; i++ {
+				text := fmt.Sprintf("%v", i)
+
+				if format != "" && strings.Contains(format, "#") {
+					text = strings.Replace(format, "#", text, -1)
+				}
+
+				elems = append(
+					elems,
+					fmt.Sprintf(`<option value="%v">%v</option>`, i, text),
+				)
+			}
+			return template.HTML(strings.Join(elems, "\n"))
+		},
+		"renderoptmap": func(values map[string]string) template.HTML {
+			var elems []string
+			for key, value := range values {
+				elems = append(
+					elems,
+					fmt.Sprintf(`<option value="%v">%v</option>`, key, value),
+				)
+			}
+			return template.HTML(strings.Join(elems, "\n"))
+		},
 	},
 }
 

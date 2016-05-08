@@ -16,6 +16,7 @@ type SearchResponse struct {
 }
 
 func Search(_ context.Context, w http.ResponseWriter, r *http.Request) {
+
 	var response SearchResponse
 
 	a1 := &models.Agent{

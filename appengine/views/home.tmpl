@@ -2,8 +2,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
-				<h2>Encuentra un Agente</h2>
+				{{ template "partials/panel-search" . }}
 
+				<h2>Encuentra un Agente</h2>
 
 				<div v-for="agent in agents" class="agent-block"
 				v-bind:class="{ 'agent-block-pc': agent.platform == 'pc', 'agent-block-ps4': agent.platform == 'ps4',
