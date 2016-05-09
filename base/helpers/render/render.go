@@ -47,7 +47,7 @@ var tmplfuncs = []template.FuncMap{
 					fmt.Sprintf(`<option value="%v">%v</option>`, i, text),
 				)
 			}
-			return template.HTML(strings.Join(elems, "\n"))
+			return template.HTML(strings.Join(elems, ""))
 		},
 		"renderoptmap": func(values map[string]string) template.HTML {
 			var elems []string
@@ -57,7 +57,7 @@ var tmplfuncs = []template.FuncMap{
 					fmt.Sprintf(`<option value="%v">%v</option>`, key, value),
 				)
 			}
-			return template.HTML(strings.Join(elems, "\n"))
+			return template.HTML(strings.Join(elems, ""))
 		},
 	},
 }
