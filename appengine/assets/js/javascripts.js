@@ -1,43 +1,113 @@
-Vue.config.devtools = true;
-Vue.config.delimiters = ['@{', '}'];
-Vue.http.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+(function() {
+	"use strict";
 
-Vue.filter('hundreds', function(value) {
-	if (value >= 1000) {
-		return (value / 1000).toFixed(0) + "K";
-	} else {
-		return value;
-	}
-});
+	// Vuejs configuration & Vue-resource configuration
+	Vue.config.devtools = true;
+	Vue.config.delimiters = ['@{', '}'];
+	Vue.http.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-var app = new Vue({
-	el: '#app',
+	// The URLs for each endpoint
+	var urls = {
+		"search": document.querySelector('#searchform').getAttribute('data-action'),
+		"addnew": document.querySelector('#add-new-agent').getAttribute('data-action')
+	};
 
-	methods: {
-		searchAgents: function() {
-			this.$http.post('/app/users', this.searchparams).then(function(response) {
-				this.$set('agents', response.data.agents);
+	// Regular expressions for verification
+	var regexs = {
+		"username": /([\w \-\_\.]){3,20}/,
+	};
+
+	// Pretty-print the stat values
+	Vue.filter('hundreds', function(value) {
+		if (value >= 1000) {
+			return (value / 1000).toFixed(0) + "K";
+		} else {
+			return value;
+		}
+	});
+
+	// Register the agentblock component
+	Vue.component('agent-block', {
+		props: ['agent'],
+		template: '#agent-block-template'
+	});
+
+	// Create the Vuejs app instance
+	var app = new Vue({
+		el: '#app',
+
+		methods: {
+			// Search all available agents using the sort-of API we have, plus
+			// includes a bit of security by using CSRF tokens
+			searchAgents: function() {
+				this.$http.post(urls.search, this.searchparams).then(function(response) {
+					if (!!response.data && !!response.data.agents) {
+						this.$set('agents', response.data.agents);
+					}
+				},
+				function(err) {
+					console.log(err);
+				});
 			},
-			function(err) {
-				console.log(err);
-			});
-		}
-	},
 
-	data: {
-		agents: [],
-		searchparams: {
-			platform: 'any',
-			activity: 'any',
-			microphone: 'any',
-			storylevel: 'any',
-			dzlevel: 'any',
-			gearlevel: 'any',
-			search: ''
-		}
-	},
+			// Function to add new agents to the system
+			addNewAgent: function() {
+				// Check if the form is valid
+				if (!this.isAgentFormValid) {
+					this.$set('shouldShowAgentValidation', true);
+					$('#modal-add-agent').animate({ scrollTop: 0 }, 'fast');
+					return;
+				}
+			},
+		},
 
-	ready: function() {
-		this.searchAgents();
-	},
-});
+		data: {
+			agents: [],
+			agentinfo: {
+				username: '',
+				platform: '',
+				activity: '',
+				microphone: '',
+				storylevel: '',
+				dzlevel: '',
+				gearlevel: '',
+				description: ''
+			},
+			searchparams: {
+				platform: 'any',
+				activity: 'any',
+				microphone: 'any',
+				storylevel: 'any',
+				dzlevel: 'any',
+				gearlevel: 'any',
+				search: ''
+			},
+			shouldShowAgentValidation: false
+		},
+
+		computed: {
+			validateAgent: function() {
+				return {
+					username: regexs.username.test(this.agentinfo.username),
+					platform: !!this.agentinfo.platform.trim(),
+					activity: !!this.agentinfo.activity.trim(),
+					microphone: !!this.agentinfo.microphone.trim(),
+					storylevel: !!this.agentinfo.storylevel.trim(),
+					dzlevel: !!this.agentinfo.dzlevel.trim(),
+					gearlevel: !!this.agentinfo.gearlevel.trim(),
+					description: this.agentinfo.description.length <= 150
+				};
+			},
+			isAgentFormValid: function() {
+				var validation = this.validateAgent;
+				return Object.keys(validation).every(function (key) {
+					return validation[key];
+				});
+			},
+		},
+
+		ready: function() {
+			this.searchAgents();
+		},
+	});
+})();

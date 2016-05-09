@@ -1,6 +1,7 @@
 <div class="panel panel-default" id="panel-search-box">
 	<div class="panel-body">
-		<form action="#" class="row" @submit.prevent="searchAgents" method="post">
+		<form id="searchform" action="#" class="row" @submit.prevent="searchAgents"
+		method="post" data-action="/app/users/search">
 			<div class="col-sm-6 col-md-4 form-group">
 				<select class="form-control" name="platform" id="s-platform" v-model="searchparams.platform">
 					<option value="any" selected>Cualquier Plataforma</option>

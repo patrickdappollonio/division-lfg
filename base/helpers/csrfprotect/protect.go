@@ -19,9 +19,7 @@ func init() {
 
 				if tkn := r.Header.Get("X-CSRF-Token"); tkn != "" {
 					tokenRetrieved = tkn
-				} /*else if tkn := r.FormValue("csrf_token"); tkn != "" {
-					tokenRetrieved = tkn
-				}*/
+				}
 
 				tokenOriginal := nosurf.Token(r)
 

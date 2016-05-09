@@ -15,6 +15,16 @@ var Activities = map[string]string{
 	"storymode":   "Modo Historia",
 }
 
+func PlatformExists(platform string) bool {
+	_, ok := Platforms[platform]
+	return ok
+}
+
+func ActivityExists(activity string) bool {
+	_, ok := Activities[activity]
+	return ok
+}
+
 func GetPlatformKeys() []string {
 	return getKeys(Platforms)
 }

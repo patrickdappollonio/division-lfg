@@ -24,6 +24,8 @@ const (
 	MaxDescriptionLength = 150
 )
 
+const AgentGroup = "agents"
+
 type Agent struct {
 	Username    string    `json:"username"`
 	Platform    string    `json:"platform"`
@@ -71,12 +73,12 @@ func (a Agent) Validate() error {
 	}
 
 	// Check if the platform exists
-	if _, ok := Platforms[a.Platform]; !ok {
+	if !PlatformExists(a.Platform) {
 		return ErrPlatformIncorrect
 	}
 
 	// Check if the activity exists
-	if _, ok := Activities[a.Activity]; !ok {
+	if !ActivityExists(a.Activity) {
 		return ErrActivityIncorrect
 	}
 

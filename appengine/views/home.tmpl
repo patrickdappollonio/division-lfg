@@ -3,53 +3,62 @@
 		<div class="row">
 			<div class="col-xs-12">
 				{{ template "partials/panel-search" . }}
+				{{ template "partials/add-modal" . }}
 
 				<h2>Encuentra un Agente</h2>
 
-				<div v-for="agent in agents" class="agent-block"
-				v-bind:class="{ 'agent-block-pc': agent.platform == 'pc', 'agent-block-ps4': agent.platform == 'ps4',
-				'agent-block-xbone': agent.platform == 'xbone' }">
-					<div class="row">
-						<div class="col-sm-5 col-md-4">
-							<div class="agent-block-username">
-								<i aria-hidden="true" class="fa fa-microphone" v-if="agent.microphone"></i>
-								@{ agent.username }
-							</div>
-							<div class="row agent-block-stats">
-								<div class="col-xs-12">
-									<div class="agent-block-stat-title">Niveles</div>
-								</div>
-								<div class="col-xs-4">
-									<div class="agent-block-stat-left">
-										<span>Historia</span> Nivel @{ agent.storylevel}
-									</div>
-								</div>
-								<div class="col-xs-4">
-									<div class="agent-block-stat-left">
-										<span>DZ</span> Nivel @{ agent.dzlevel }
-									</div>
-								</div>
-								<div class="col-xs-4">
-									<div class="agent-block-stat-left">
-										<span>Equipo</span> Nivel @{ agent.gearlevel }
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-7 col-md-8">
-							<div class="agent-block-activity"><span>Actividad:</span> @{ agent.activity }</div>
-							<p class="description">
-								@{ agent.description }
-							</p>
+				<agent-block v-for="agent in agents" v-bind:class="{ 'agent-block-pc': agent.platform == 'pc', 'agent-block-ps4': agent.platform == 'ps4', 'agent-block-xbone': agent.platform == 'xbone' }" :agent="agent"></agent-block>
 
-							<ul class="agent-block-skills">
-								<li><i aria-hidden="true" class="fa fa-crosshairs"></i> @{ agent.firearms | hundreds }</li>
-								<li><i aria-hidden="true" class="fa fa-medkit"></i> @{ agent.stamina | hundreds }</li>
-								<li><i aria-hidden="true" class="fa fa-battery-3"></i> @{ agent.electronics | hundreds }</li>
-							</ul>
+				<script type="x/template" id="agent-block-template">
+					<div class="agent-block">
+						<div class="row">
+							<div class="col-sm-5 col-md-4">
+								<div class="agent-block-username">
+									<i aria-hidden="true" class="fa fa-microphone" v-if="agent.microphone"></i>
+									@{ agent.username }
+								</div>
+								<div class="row agent-block-stats">
+									<div class="col-xs-12">
+										<div class="agent-block-stat-title">Niveles</div>
+									</div>
+									<div class="col-xs-4">
+										<div class="agent-block-stat-left">
+											<span>Historia</span> Nivel @{ agent.storylevel}
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<div class="agent-block-stat-left">
+											<span>DZ</span> Nivel @{ agent.dzlevel }
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<div class="agent-block-stat-left">
+											<span>Equipo</span> Nivel @{ agent.gearlevel }
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-7 col-md-8">
+								<div class="agent-block-activity"><span>Actividad:</span> @{ agent.activity }</div>
+								<p class="description">
+									@{ agent.description }
+								</p>
+
+								<ul class="agent-block-skills">
+									<li>
+										<i aria-hidden="true" class="fa fa-crosshairs"></i> @{ agent.firearms | hundreds }
+									</li>
+									<li>
+										<i aria-hidden="true" class="fa fa-medkit"></i> @{ agent.stamina | hundreds }
+									</li>
+									<li>
+										<i aria-hidden="true" class="fa fa-battery-3"></i> @{ agent.electronics | hundreds }
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
-				</div>
+				</script>
 			</div>
 		</div>
 	</div>

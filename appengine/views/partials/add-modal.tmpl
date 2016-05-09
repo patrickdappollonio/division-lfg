@@ -1,0 +1,98 @@
+<div class="modal fade" id="modal-add-agent" tabindex="-1" role="dialog" aria-labelledby="add-modal-title">
+	<div class="modal-dialog">
+		<form id="add-new-agent" action="#" class="modal-content" @submit.prevent="addNewAgent"
+		method="post" data-action="/app/users">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="add-modal-title">Agrega un nuevo agente</h4>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-danger" v-show="shouldShowAgentValidation &amp;&amp; !isAgentFormValid">
+					<strong>Corrige los siguientes errores:</strong>
+					<ul>
+						<li v-show="!validateAgent.username">El nombre de usuario del agente debe contener entre 3 y 20 caracteres y puede incluir letras, números, puntos, guiones, guiones bajos y espacios.</li>
+						<li v-show="!validateAgent.platform">No has seleccionado una plataforma.</li>
+						<li v-show="!validateAgent.activity">No has seleccionado una actividad.</li>
+						<li v-show="!validateAgent.microphone">No has indicado si tienes o no micrófono.</li>
+						<li v-show="!validateAgent.storylevel">No has indicado tu nivel en el modo historia.</li>
+						<li v-show="!validateAgent.dzlevel">No has indicado tu nivel en la zona oscura.</li>
+						<li v-show="!validateAgent.gearlevel">No has indicado tu nivel de equipo.</li>
+						<li v-show="!validateAgent.description">La descripción es demasiado larga.</li>
+					</ul>
+				</div>
+
+				<div class="form-group">
+					<label>Nombre de usuario:</label>
+					<p>Ingresa tu nombre de usuario de PC (Uplay / Steam), PlayStation 4 o Xbox One.</p>
+					<input type="text" name="username" class="form-control" placeholder="Nombre de usuario" v-model="agentinfo.username">
+				</div>
+
+				<div class="form-group">
+					<label>Plataforma:</label>
+					<p>Indica la plataforma en la que juegas con este usuario.</p>
+					<select class="form-control" name="platform" v-model="agentinfo.platform">
+						<option value="" disabled selected>Selecciona plataforma...</option>
+						{{ renderoptmap .AvailablePlatforms }}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label>Actividad:</label>
+					<p>Qué actividad quieres realizar con la gente que buscas? Misiones, leveleo o similar?</p>
+					<select class="form-control" name="activity" v-model="agentinfo.activity">
+						<option value="" disabled selected>Selecciona actividad...</option>
+						{{ renderoptmap .AvailableActivities }}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label>Micrófono:</label>
+					<p>Si posees un micrófono, indícalo. The Division es mucho más entretenido con alguien que usa micrófono y otros agentes estarían más dispuestos a agregarte si usas uno.</p>
+					<select class="form-control" name="microphone" v-model="agentinfo.microphone">
+						<option value="" disabled selected>Selecciona una opción...</option>
+						<option value="true">Si tengo micrófono</option>
+						<option value="false">No tengo micrófono</option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label>Niveles:</label>
+					<p>Indica tus niveles en el juego, tanto en el modo historia, en la zona oscura y tu nivel de equipo. Estos stats ayudarán a otros agentes a encontrarte!</p>
+					<div class="row">
+						<div class="col-xs-4">
+							<select class="form-control" name="storylevel" v-model="agentinfo.storylevel">
+								<option value="" disabled selected>Modo Historia</option>
+								{{ renderopts .MinStoryLevel .MaxStoryLevel "#" }}
+							</select>
+						</div>
+						<div class="col-xs-4">
+							<select class="form-control" name="dzlevel" v-model="agentinfo.dzlevel">
+								<option value="" disabled selected>Zona Oscura</option>
+								{{ renderopts .MinDZLevel .MaxDZLevel "#" }}
+							</select>
+						</div>
+						<div class="col-xs-4">
+							<select class="form-control" name="gearlevel" v-model="agentinfo.gearlevel">
+								<option value="" disabled selected>Nivel Equipo</option>
+								{{ renderopts .MinGearLevel .MaxGearLevel "#" }}
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label>Descripción:</label>
+					<p>Agrega aquí cualquier información adicional, como otras características que buscas en otros agentes, o alguna instrucción especial.</p>
+					<textarea name="description" class="form-control" placeholder="Descripción adicional" v-model="agentinfo.description"></textarea>
+	 			</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+				<button type="submit" id="save-agent" class="btn btn-primary">
+					<i class="fa fa-plus-circle"></i> Agregar agente
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
