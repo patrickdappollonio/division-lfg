@@ -76,7 +76,9 @@ func Search(_ context.Context, w http.ResponseWriter, r *http.Request) {
 		q = q.Filter("GearLevel =", searchparams.IntGearLevel)
 	}
 
-	// TODO include the search text
+	// TODO once Google AppEngine kind-of supports
+	// text searches, then add `searchparams.Search`
+	// as part of the parameters of the search.
 
 	// Perform the search
 	if _, err := q.GetAll(ctx, &agents); err != nil {
@@ -106,9 +108,9 @@ func Search(_ context.Context, w http.ResponseWriter, r *http.Request) {
 		GearLevel:   204,
 		Activity:    "Zona Oscura",
 		Description: "Looking for a group of adults that have a good route to run to farm exp. 170k60k20k. Send inv",
-		Firearms:    170000,
-		Stamina:     60000,
-		Electronics: 20000,
+		Firearms:    0,
+		Stamina:     0,
+		Electronics: 0,
 		Registered:  time.Now(),
 	})
 	// =====================

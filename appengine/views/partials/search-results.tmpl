@@ -14,13 +14,13 @@
 						<div class="agent-block-stat-title">Niveles</div>
 					</div>
 					<div class="col-xs-4">
-						<div class="agent-block-stat-left"> <span>Historia</span> Nivel @{ agent.storylevel} </div>
+						<div class="agent-block-stat-left"> <span>Historia</span> Nivel <strong>@{ agent.storylevel}</strong> </div>
 					</div>
 					<div class="col-xs-4">
-						<div class="agent-block-stat-left"> <span>DZ</span> Nivel @{ agent.dzlevel } </div>
+						<div class="agent-block-stat-left"> <span>DZ</span> Nivel <strong>@{ agent.dzlevel }</strong> </div>
 					</div>
 					<div class="col-xs-4">
-						<div class="agent-block-stat-left"> <span>Equipo</span> Nivel @{ agent.gearlevel } </div>
+						<div class="agent-block-stat-left"> <span>Equipo</span> Nivel <strong>@{ agent.gearlevel }</strong> </div>
 					</div>
 				</div>
 			</div>
@@ -28,7 +28,7 @@
 				<div class="agent-block-activity"><span>Actividad:</span> @{ agent.activity }</div>
 				<p class="description"> @{ agent.description } </p>
 
-				<ul class="agent-block-skills">
+				<ul class="agent-block-skills" v-if="agent.firearms != 0 && agent.stamina != 0 && agent.electronics != 0">
 					<li> <i aria-hidden="true" class="fa fa-crosshairs"></i> @{ agent.firearms | hundreds } </li>
 					<li> <i aria-hidden="true" class="fa fa-medkit"></i> @{ agent.stamina | hundreds } </li>
 					<li> <i aria-hidden="true" class="fa fa-battery-3"></i> @{ agent.electronics | hundreds } </li>

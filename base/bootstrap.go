@@ -21,4 +21,5 @@ func init() {
 
 	Router.Get("/", handlers.GetHome)
 	Router.Post("/app/users/search", handlers.Search)
+	Router.Post("/app/users", handlers.AddUser)
 }

@@ -40,6 +40,7 @@
 			// Search all available agents using the sort-of API we have, plus
 			// includes a bit of security by using CSRF tokens
 			searchAgents: function() {
+				// Send the search request to the endpoint
 				this.$http.post(urls.search, this.searchparams).then(function(response) {
 					if (!!response.data && !!response.data.agents) {
 						this.$set('agents', response.data.agents);
@@ -58,6 +59,19 @@
 					$('#modal-add-agent').animate({ scrollTop: 0 }, 'fast');
 					return;
 				}
+
+				// Send the data to the API endpoint
+				this.$http.post(urls.addnew, this.agentinfo).then(function(response) {
+					console.log(response);
+
+					// TODO
+					// 1. Clean the this.agentinfo with default values
+					// 2. The API will return an agent object, append it to this.agents
+					//    so it shows on screen, even when you're not looking for his specs
+
+				}, function(err) {
+					console.log(err);
+				})
 			},
 		},
 
@@ -71,7 +85,10 @@
 				storylevel: '',
 				dzlevel: '',
 				gearlevel: '',
-				description: ''
+				description: '',
+				firearms: '',
+				stamina: '',
+				electronics: ''
 			},
 			searchparams: {
 				platform: 'any',
@@ -95,7 +112,10 @@
 					storylevel: !!this.agentinfo.storylevel.trim(),
 					dzlevel: !!this.agentinfo.dzlevel.trim(),
 					gearlevel: !!this.agentinfo.gearlevel.trim(),
-					description: this.agentinfo.description.length <= 150
+					description: this.agentinfo.description.length <= 150,
+					firearms: true,
+					stamina: true,
+					electronics: true
 				};
 			},
 			isAgentFormValid: function() {

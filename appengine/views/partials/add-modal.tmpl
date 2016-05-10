@@ -82,9 +82,28 @@
 
 				<div class="form-group">
 					<label>Descripción:</label>
-					<p>Agrega aquí cualquier información adicional, como otras características que buscas en otros agentes, o alguna instrucción especial.</p>
+					<p><span class="label label-warning">Opcional</span> Agrega aquí cualquier información adicional, como otras características que buscas en otros agentes, o alguna instrucción especial.</p>
 					<textarea name="description" class="form-control" placeholder="Descripción adicional" v-model="agentinfo.description"></textarea>
 	 			</div>
+
+	 			<div class="form-group">
+					<label>Stats opcionales:</label>
+					<p><span class="label label-warning">Opcional</span> Indícanos tus siguientes stats, para ingresarlos en tu perfil de usuario. Puedes dejarlos vacíos, pero es recomendable que indiques un valor. Incluye la cifra completa o redondeada, es decir, si tu DPS es de <code>147.582</code>, puedes escribir <code>147582</code> o <code>147000</code>.</p>
+					<div class="row">
+						<div class="col-xs-4">
+							<input class="form-control" type="number" placeholder="Principal DPS"
+							min="0" max="500000" v-model="agentinfo.firearms">
+						</div>
+						<div class="col-xs-4">
+							<input class="form-control" type="number" placeholder="Salud"
+							min="0" max="500000" v-model="agentinfo.stamina">
+						</div>
+						<div class="col-xs-4">
+							<input class="form-control" type="number" placeholder="Pot. Habilidad"
+							min="0" max="500000" v-model="agentinfo.electronics">
+						</div>
+					</div>
+				</div>
 
 			</div>
 			<div class="modal-footer">

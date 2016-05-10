@@ -39,7 +39,9 @@
 					{{ renderopts .MinGearLevel .MaxGearLevel "Nivel #" }}
 				</select>
 			</div>
-			<div class="col-xs-12 form-group">
+
+			<!-- AppEngine does not support yet LIKE search in the datastore -->
+			<!-- <div class="col-xs-12 form-group">
 				<div class="input-group">
 					<span class="input-group-addon" id="search-addon">
 						<i class="fa fa-search" aria-hidden="true"></i>
@@ -49,7 +51,8 @@
 					placeholder="Busca en la descripción del agente datos extra..."
 					aria-describedby="search-addon" v-model="searchparams.search">
 				</div>
-			</div>
+			</div> -->
+
 			<div class="col-sm-offset-1 col-sm-5 col-md-offset-2 col-md-4 form-group">
 				<button type="submit" id="search-agents" class="form-control btn btn-primary">
 					<i class="fa fa-search"></i> Buscar Agentes

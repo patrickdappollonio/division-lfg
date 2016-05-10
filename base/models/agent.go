@@ -20,8 +20,10 @@ const (
 	MinGearLevel = 150
 	MaxGearLevel = 240
 
-	MinDescriptionLength = 3
+	MinDescriptionLength = 0
 	MaxDescriptionLength = 150
+
+	MaxStatLevel = 500000
 )
 
 const AgentGroup = "agents"
@@ -44,17 +46,21 @@ type Agent struct {
 var (
 	strLevelOverflow = "el nivel %v está fuera de los niveles disponibles"
 	strYouveSelected = "has seleccionado %v"
+	strStatTooHigh   = "tu puntaje de %v es demasiado alto, imposible que tengas ese puntaje a menos que uses un glitch o hack!"
 )
 
 var (
-	ErrUsernameTooShort    = fmt.Errorf("el nombre de usuario debe tener entre %v y %v caracteres", MinUsernameLength, MaxUsernameLength)
-	ErrDescriptionTooShort = fmt.Errorf("la descripción debe tener entre %v y %v caracteres", MinDescriptionLength, MaxDescriptionLength)
-	ErrUsernameInvalid     = fmt.Errorf("el nonbre de usuario no parece ser válido")
-	ErrPlatformIncorrect   = fmt.Errorf(strYouveSelected, "una plataforma inválida")
-	ErrActivityIncorrect   = fmt.Errorf(strYouveSelected, "una actividad inválida")
-	ErrStoryLevelOverflow  = fmt.Errorf(strLevelOverflow, "en el modo historia")
-	ErrDZLevelOverflow     = fmt.Errorf(strLevelOverflow, "de la zona oscura")
-	ErrGearLevelOverflow   = fmt.Errorf(strLevelOverflow, "de equipo")
+	ErrUsernameTooShort         = fmt.Errorf("el nombre de usuario debe tener entre %v y %v caracteres", MinUsernameLength, MaxUsernameLength)
+	ErrDescriptionTooShort      = fmt.Errorf("la descripción debe tener entre %v y %v caracteres", MinDescriptionLength, MaxDescriptionLength)
+	ErrUsernameInvalid          = fmt.Errorf("el nonbre de usuario no parece ser válido")
+	ErrPlatformIncorrect        = fmt.Errorf(strYouveSelected, "una plataforma inválida")
+	ErrActivityIncorrect        = fmt.Errorf(strYouveSelected, "una actividad inválida")
+	ErrStoryLevelOverflow       = fmt.Errorf(strLevelOverflow, "en el modo historia")
+	ErrDZLevelOverflow          = fmt.Errorf(strLevelOverflow, "de la zona oscura")
+	ErrGearLevelOverflow        = fmt.Errorf(strLevelOverflow, "de equipo")
+	ErrFirearmsLevelOverflow    = fmt.Errorf(strStatTooHigh, "Principal DPS")
+	ErrStaminaLevelOverflow     = fmt.Errorf(strStatTooHigh, "Salud")
+	ErrElectronicsLevelOverflow = fmt.Errorf(strStatTooHigh, "Potencia de Habilidad")
 )
 
 var (
@@ -100,6 +106,21 @@ func (a Agent) Validate() error {
 	// Check if description has the required length
 	if !hasLength(a.Description, MinDescriptionLength, MaxDescriptionLength) {
 		return ErrDescriptionTooShort
+	}
+
+	// Check if the Firearms stat is below the required leve
+	if !isBetweenMinMax(a.Firearms, 0, MaxStatLevel) {
+		return ErrFirearmsLevelOverflow
+	}
+
+	// Check if the Stamina stat is below the required leve
+	if !isBetweenMinMax(a.Stamina, 0, MaxStatLevel) {
+		return ErrStaminaLevelOverflow
+	}
+
+	// Check if the Electronics stat is below the required leve
+	if !isBetweenMinMax(a.Electronics, 0, MaxStatLevel) {
+		return ErrElectronicsLevelOverflow
 	}
 
 	return nil
